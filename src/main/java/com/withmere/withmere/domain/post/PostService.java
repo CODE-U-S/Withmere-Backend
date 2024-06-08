@@ -40,4 +40,10 @@ public class PostService {
 
         post.update(request.getTitle(), request.getContent(), request.getField());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        if(!postRepository.existsById(id)) throw PostNotFoundException.EXCEPTION;
+        postRepository.deleteById(id);
+    }
 }
