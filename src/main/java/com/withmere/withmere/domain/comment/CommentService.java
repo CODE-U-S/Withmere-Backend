@@ -2,8 +2,10 @@ package com.withmere.withmere.domain.comment;
 
 import com.withmere.withmere.domain.comment.dto.AddCommentRequest;
 import com.withmere.withmere.domain.comment.dto.CommentResponse;
+import com.withmere.withmere.domain.comment.dto.UpdateCommentRequest;
 import com.withmere.withmere.domain.post.PostRepository;
 import com.withmere.withmere.domain.user.UserRepository;
+import com.withmere.withmere.global.exception.CommentNotFoundException;
 import com.withmere.withmere.global.exception.PostNotFoundException;
 import com.withmere.withmere.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +37,13 @@ public class CommentService {
                 .stream()
                 .map(CommentResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void update(Long id, UpdateCommentRequest request) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+
+        comment.update(request.getComment());
     }
 }
