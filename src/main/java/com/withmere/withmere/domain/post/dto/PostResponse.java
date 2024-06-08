@@ -6,6 +6,8 @@ import com.withmere.withmere.domain.post.Post;
 import com.withmere.withmere.domain.user.User;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class PostResponse {
     private final Long id;
@@ -14,6 +16,8 @@ public class PostResponse {
     private final User user;
     private final Category category;
     private final Field field;
+    private final LocalDateTime createdDate;
+    private final LocalDateTime modifiedDate;
 
     public PostResponse(Post post) {
         this.id = post.getId();
@@ -22,5 +26,7 @@ public class PostResponse {
         this.user = post.getUser();
         this.category = post.getCategory();
         this.field = post.getField();
+        this.createdDate = post.getCreatedDate();
+        this.modifiedDate = post.getModifiedDate();
     }
 }
