@@ -30,10 +30,17 @@ public class LikeService {
 
     @Transactional(readOnly = true)
     public List<LikeResponse> findAllByPostId(Long postId) {
+        if(!postRepository.existsById(postId)) throw PostNotFoundException.EXCEPTION;
         return likeRepository.findAllByPostId(postId)
                 .stream()
                 .map(LikeResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Long countAllByPostId(Long postId) {
+        if(!postRepository.existsById(postId)) throw PostNotFoundException.EXCEPTION;
+        return likeRepository.countAllByPostId(postId);
     }
 
     @Transactional

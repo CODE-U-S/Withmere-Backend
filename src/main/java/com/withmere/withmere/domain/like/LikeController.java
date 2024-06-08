@@ -25,6 +25,11 @@ public class LikeController {
         return likeService.findAllByPostId(id);
     }
 
+    @GetMapping("/post/count/{id}")
+    public Long countAllByPostIdLike(@PathVariable Long id) {
+        return likeService.countAllByPostId(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteLike(@PathVariable Long id) {
         likeService.delete(id);
