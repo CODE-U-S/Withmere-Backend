@@ -4,11 +4,15 @@ import com.withmere.withmere.domain.like.dto.AddLikeRequest;
 import com.withmere.withmere.domain.like.dto.LikeResponse;
 import com.withmere.withmere.domain.post.PostRepository;
 import com.withmere.withmere.domain.user.UserRepository;
+import com.withmere.withmere.global.exception.LikeNotFoundException;
 import com.withmere.withmere.global.exception.PostNotFoundException;
 import com.withmere.withmere.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +28,17 @@ public class LikeService {
         return new LikeResponse(likeRepository.save(request.toEntity()));
     }
 
+    @Transactional(readOnly = true)
+    public List<LikeResponse> findAllByPostId(Long postId) {
+        return likeRepository.findAllByPostId(postId)
+                .stream()
+                .map(LikeResponse::new)
+                .collect(Collectors.toList());
+    }
 
+    @Transactional
+    public void delete(Long id) {
+        if(!likeRepository.existsById(id)) throw LikeNotFoundException.EXCEPTION;
+        likeRepository.deleteById(id);
+    }
 }

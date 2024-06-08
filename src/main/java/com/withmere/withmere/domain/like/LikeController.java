@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/like")
@@ -18,5 +20,13 @@ public class LikeController {
         return likeService.save(request);
     }
 
+    @GetMapping("/post/{id}")
+    public List<LikeResponse> findAllByPostIdLike(@PathVariable Long id) {
+        return likeService.findAllByPostId(id);
+    }
 
+    @DeleteMapping("/{id}")
+    public void deleteLike(@PathVariable Long id) {
+        likeService.delete(id);
+    }
 }
