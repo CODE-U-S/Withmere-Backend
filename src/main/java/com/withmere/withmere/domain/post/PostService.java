@@ -1,6 +1,8 @@
-package com.withmere.withmere.domain.post.dto;
+package com.withmere.withmere.domain.post;
 
 import com.withmere.withmere.domain.post.PostRepository;
+import com.withmere.withmere.domain.post.dto.AddPostRequest;
+import com.withmere.withmere.domain.post.dto.PostResponse;
 import com.withmere.withmere.domain.user.UserRepository;
 import com.withmere.withmere.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
