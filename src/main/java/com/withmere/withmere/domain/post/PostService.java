@@ -33,6 +33,14 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<PostResponse> findAllByTitleOrContent(String title, String content) {
+        return postRepository.findAllByTitleContainingOrContentContaining(title, content)
+                .stream()
+                .map(PostResponse::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public void update(Long id, UpdatePostRequest request) {
         Post post = postRepository.findById(id)
