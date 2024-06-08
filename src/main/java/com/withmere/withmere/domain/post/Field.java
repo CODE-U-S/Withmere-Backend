@@ -1,5 +1,6 @@
 package com.withmere.withmere.domain.post;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -10,8 +11,8 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum Field {
-    App("App(모바일 애플리케이션)"),
-    Web("Web(웹 애플리케이션)"),
+    APP("App(모바일 애플리케이션)"),
+    WEB("Web(웹 애플리케이션)"),
     DESKTOP("데스크톱 애플리케이션"),
     GAME("게임"),
     VR_OR_AR("가상 현실(VR) 및 증강 현실(AR)"),
@@ -28,16 +29,6 @@ public enum Field {
     MOTION_GRAPHIC("모션 그래픽 디자인"),
     BRAND("브랜드 디자인");
 
+    @JsonValue
     private final String description;
-
-    public static Field findByField(String description) {
-        return Arrays.stream(Field.values())
-                .filter(field -> field.hasDescription(description))
-                .findAny()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-    }
-
-    public boolean hasDescription(String description) {
-        return getDescription().equals(description);
-    }
 }
