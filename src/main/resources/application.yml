@@ -11,6 +11,7 @@ spring:
       mode: always
 
   jpa:
+    defer-datasource-initialization: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
     generate-ddl: true
@@ -21,4 +22,3 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
-    defer-datasource-initialization: true
