@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/comment")
@@ -16,5 +18,10 @@ public class CommentController {
     @ResponseStatus(HttpStatus.CREATED)
     public CommentResponse saveComment(@RequestBody AddCommentRequest request) {
         return commentService.save(request);
+    }
+
+    @GetMapping("/post/{id}")
+    public List<CommentResponse> findAllByPostIdComment(@PathVariable Long id) {
+        return commentService.findAllByPostId(id);
     }
 }
