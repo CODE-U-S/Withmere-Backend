@@ -12,5 +12,7 @@ public class UserController {
     private final UserRepository userRepository;
 
     @GetMapping
-    public User
+    public UserResponse getUser() {
+        return new UserResponse(userRepository.findById(1L).orElseThrow(() -> UserNotFoundException.EXCEPTION));
+    }
 }
