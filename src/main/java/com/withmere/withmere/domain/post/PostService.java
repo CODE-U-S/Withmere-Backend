@@ -2,7 +2,9 @@ package com.withmere.withmere.domain.post;
 
 import com.withmere.withmere.domain.post.dto.AddPostRequest;
 import com.withmere.withmere.domain.post.dto.PostResponse;
+import com.withmere.withmere.domain.post.dto.UpdatePostRequest;
 import com.withmere.withmere.domain.user.UserRepository;
+import com.withmere.withmere.global.exception.PostNotFoundException;
 import com.withmere.withmere.global.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,5 +31,13 @@ public class PostService {
                 .stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void update(Long id, UpdatePostRequest request) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+
+        post.update(request.getTitle(), request.getContent(), request.getField());
     }
 }

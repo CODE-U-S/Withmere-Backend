@@ -2,6 +2,7 @@ package com.withmere.withmere.domain.post;
 
 import com.withmere.withmere.domain.post.dto.AddPostRequest;
 import com.withmere.withmere.domain.post.dto.PostResponse;
+import com.withmere.withmere.domain.post.dto.UpdatePostRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,5 +24,10 @@ public class PostController {
     @GetMapping("/{category}")
     public List<PostResponse> findAllByCategoryPost(@PathVariable String category) {
         return postService.findAllByCategory(Category.findByCategory(category));
+    }
+
+    @PutMapping("/{id}")
+    public void updatePost(@PathVariable Long id, @RequestBody UpdatePostRequest request) {
+        postService.update(id, request);
     }
 }
