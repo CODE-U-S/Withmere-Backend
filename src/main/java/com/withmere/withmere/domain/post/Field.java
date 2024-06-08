@@ -31,4 +31,15 @@ public enum Field {
 
     @JsonValue
     private final String description;
+
+    public static Field findByField(String description) {
+        return Arrays.stream(Field.values())
+                .filter(field -> field.hasDescription(description))
+                .findAny()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+    }
+
+    public boolean hasDescription(String description) {
+        return getDescription().equals(description);
+    }
 }
