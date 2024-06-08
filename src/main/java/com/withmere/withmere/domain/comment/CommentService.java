@@ -46,4 +46,10 @@ public class CommentService {
 
         comment.update(request.getComment());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        if(!commentRepository.existsById(id)) throw CommentNotFoundException.EXCEPTION;
+        commentRepository.deleteById(id);
+    }
 }
