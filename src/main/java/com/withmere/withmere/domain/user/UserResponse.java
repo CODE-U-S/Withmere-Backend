@@ -2,7 +2,6 @@ package com.withmere.withmere.domain.user;
 
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,7 +11,7 @@ public class UserResponse {
     private final String email;
     private final Category category;
     private final LocalDateTime createdDate;
-    private final LocalDate modifiedDate;
+    private final LocalDateTime modifiedDate;
 
     public UserResponse(User user) {
         this.id = user.getId();
