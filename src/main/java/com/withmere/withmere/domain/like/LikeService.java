@@ -4,6 +4,7 @@ import com.withmere.withmere.domain.like.dto.AddLikeRequest;
 import com.withmere.withmere.domain.like.dto.LikeResponse;
 import com.withmere.withmere.domain.post.PostRepository;
 import com.withmere.withmere.domain.user.UserRepository;
+import com.withmere.withmere.global.exception.LikeDuplicateException;
 import com.withmere.withmere.global.exception.LikeNotFoundException;
 import com.withmere.withmere.global.exception.PostNotFoundException;
 import com.withmere.withmere.global.exception.UserNotFoundException;
@@ -25,6 +26,10 @@ public class LikeService {
     public LikeResponse save(AddLikeRequest request) {
         if(!userRepository.existsById(request.getUser().getId())) throw UserNotFoundException.EXCEPTION;
         if(!postRepository.existsById(request.getPost().getId())) throw PostNotFoundException.EXCEPTION;
+        if(likeRepository.existsByUserIdAndPostId(
+                request.getUser().getId(),
+                request.getPost().getId()
+        )) throw LikeDuplicateException.EXCEPTION;
         return new LikeResponse(likeRepository.save(request.toEntity()));
     }
 
