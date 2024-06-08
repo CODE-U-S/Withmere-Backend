@@ -1,12 +1,15 @@
 package com.withmere.withmere.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.withmere.withmere.domain.post.Post;
 import com.withmere.withmere.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +25,10 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Category category;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> postList;
 
     @Builder
     public User(String name, String email, String pw, Category category) {
