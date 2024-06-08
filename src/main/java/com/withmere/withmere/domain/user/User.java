@@ -1,6 +1,7 @@
 package com.withmere.withmere.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.withmere.withmere.domain.comment.Comment;
 import com.withmere.withmere.domain.post.Post;
 import com.withmere.withmere.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -29,6 +30,10 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> postList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> commentList;
 
     @Builder
     public User(String name, String email, String pw, Category category) {
