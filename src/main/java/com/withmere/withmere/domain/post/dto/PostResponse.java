@@ -1,5 +1,6 @@
 package com.withmere.withmere.domain.post.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.withmere.withmere.domain.post.Category;
 import com.withmere.withmere.domain.post.Field;
 import com.withmere.withmere.domain.post.Post;
@@ -16,7 +17,11 @@ public class PostResponse {
     private final User user;
     private final Category category;
     private final Field field;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDateTime createdDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDateTime modifiedDate;
 
     public PostResponse(Post post) {
