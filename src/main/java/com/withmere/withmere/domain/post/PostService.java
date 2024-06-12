@@ -41,6 +41,13 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public PostResponse findById(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+        return new PostResponse(post);
+    }
+
     @Transactional
     public void update(Long id, UpdatePostRequest request) {
         Post post = postRepository.findById(id)
