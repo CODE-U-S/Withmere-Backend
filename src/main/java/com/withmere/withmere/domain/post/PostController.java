@@ -26,10 +26,14 @@ public class PostController {
         return postService.findAllByCategory(Category.findByCategory(category));
     }
 
-    @GetMapping("/{search}")
+    @GetMapping("/search/{search}")
     public List<PostResponse> findAllByTitleOrContentPost(@PathVariable String search) {
-        System.out.println(search);
         return postService.findAllByTitleOrContent(search, search);
+    }
+
+    @GetMapping("/{id}")
+    public PostResponse findByIdPost(@PathVariable Long id) {
+        return postService.findById(id);
     }
 
     @PutMapping("/{id}")
