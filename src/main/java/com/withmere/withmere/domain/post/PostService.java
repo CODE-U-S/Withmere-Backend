@@ -65,6 +65,14 @@ public class PostService {
     }
 
     @Transactional
+    public void updateStatus(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+
+        post.updateStatus(Status.CLOSE);
+    }
+
+    @Transactional
     public void delete(Long id) {
         if(!postRepository.existsById(id)) throw PostNotFoundException.EXCEPTION;
         postRepository.deleteById(id);
