@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.withmere.withmere.domain.post.Category;
 import com.withmere.withmere.domain.post.Field;
 import com.withmere.withmere.domain.post.Post;
+import com.withmere.withmere.domain.post.Status;
 import com.withmere.withmere.domain.user.User;
 import lombok.Getter;
 
@@ -17,6 +18,7 @@ public class PostResponse {
     private final User user;
     private final Category category;
     private final Field field;
+    private final Status status;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDateTime createdDate;
@@ -31,6 +33,7 @@ public class PostResponse {
         this.user = post.getUser();
         this.category = post.getCategory();
         this.field = post.getField();
+        this.status = post.getStatus();
         this.createdDate = post.getCreatedDate();
         this.modifiedDate = post.getModifiedDate();
     }
