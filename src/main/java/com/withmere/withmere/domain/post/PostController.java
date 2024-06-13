@@ -26,6 +26,11 @@ public class PostController {
         return postService.findAllByCategory(Category.findByCategory(category));
     }
 
+    @GetMapping("/status/{status}")
+    public List<PostResponse> findAllByStatusPost(@PathVariable String status) {
+        return postService.findAllByStatus(Status.valueOf(status));
+    }
+
     @GetMapping("/search/{search}")
     public List<PostResponse> findAllByTitleOrContentPost(@PathVariable String search) {
         return postService.findAllByTitleOrContent(search, search);
