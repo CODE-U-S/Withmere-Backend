@@ -31,22 +31,30 @@ public class Post extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Field field;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList;
 
     @Builder
-    public Post(String title, String content, User user, Category category, Field field) {
+    public Post(String title, String content, User user, Category category, Field field, Status status) {
         this.title = title;
         this.content = content;
         this.user = user;
         this.category = category;
         this.field = field;
+        this.status = status;
     }
 
     public void update(String title, String content, Field field) {
         this.title = title;
         this.content = content;
         this.field = field;
+    }
+
+    public void updateStatus(Status status) {
+        this.status = status;
     }
 }
