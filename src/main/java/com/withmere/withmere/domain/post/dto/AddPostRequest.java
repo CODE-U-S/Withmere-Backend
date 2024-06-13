@@ -3,6 +3,7 @@ package com.withmere.withmere.domain.post.dto;
 import com.withmere.withmere.domain.post.Category;
 import com.withmere.withmere.domain.post.Field;
 import com.withmere.withmere.domain.post.Post;
+import com.withmere.withmere.domain.post.Status;
 import com.withmere.withmere.domain.user.User;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +27,8 @@ public class AddPostRequest {
 
     private Field field;
 
+    private Status status;
+
     public Post toEntity() {
         return Post.builder()
                 .title(title)
@@ -33,6 +36,7 @@ public class AddPostRequest {
                 .user(user)
                 .category(category)
                 .field(field)
+                .status(Status.OPEN)
                 .build();
     }
 }
