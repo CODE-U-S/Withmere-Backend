@@ -2,6 +2,7 @@ package com.withmere.withmere.domain.post.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.withmere.withmere.domain.post.Category;
+import com.withmere.withmere.domain.post.Field;
 import com.withmere.withmere.domain.post.Post;
 import com.withmere.withmere.domain.post.Status;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,24 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         return queryFactory
                 .selectFrom(post)
                 .where(post.title.contains(title).or(post.content.contains(content)))
+                .fetch();
+    }
+
+    @Override
+    public List<Post> findAllByFieldAndStatusOrderByLikeCountDesc(Field field, Status status) {
+        return queryFactory
+                .selectFrom(post)
+                .where(post.field.eq(field).and(post.status.eq(status)))
+                .orderBy(post.likeCount.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<Post> findAllByFieldAndStatusOrderByCommentCountDesc(Field field, Status status) {
+        return queryFactory
+                .selectFrom(post)
+                .where(post.field.eq(field).and(post.status.eq(status)))
+                .orderBy(post.commentCount.desc())
                 .fetch();
     }
 }

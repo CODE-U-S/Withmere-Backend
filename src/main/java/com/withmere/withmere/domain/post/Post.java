@@ -2,6 +2,7 @@ package com.withmere.withmere.domain.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.withmere.withmere.domain.comment.Comment;
+import com.withmere.withmere.domain.like.Like;
 import com.withmere.withmere.domain.user.User;
 import com.withmere.withmere.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 import java.util.List;
 
@@ -38,14 +40,26 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likeList;
+
+    @Formula("(select count(*) from likes where likes.post_id = id)")
+    private Long likeCount;
+
+    @Formula("(select count(*) from comment where comment.post_id = id)")
+    private Long commentCount;
+
     @Builder
-    public Post(String title, String content, User user, Category category, Field field, Status status) {
+    public Post(String title, String content, User user, Category category, Field field, Status status, Long likeCount, Long commentCount) {
         this.title = title;
         this.content = content;
         this.user = user;
         this.category = category;
         this.field = field;
         this.status = status;
+        this.likeCount = likeCount;
+        this.commentCount = commentCount;
     }
 
     public void update(String title, String content, Field field) {

@@ -1,6 +1,7 @@
 package com.withmere.withmere.domain.post.repository;
 
 import com.withmere.withmere.domain.post.Category;
+import com.withmere.withmere.domain.post.Field;
 import com.withmere.withmere.domain.post.Post;
 import com.withmere.withmere.domain.post.Status;
 
@@ -12,4 +13,6 @@ public interface PostRepositoryCustom {
     List<Post> findAllByStatus(Status status);
     List<Post> findAllByCategoryAndStatus(Category category, Status status);
     List<Post> findAllByTitleContainingOrContentContaining(String title, String content);
+    List<Post> findAllByFieldAndStatusOrderByLikeCountDesc(Field field, Status status);
+    List<Post> findAllByFieldAndStatusOrderByCommentCountDesc(Field field, Status status);
 }

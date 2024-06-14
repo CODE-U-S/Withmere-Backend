@@ -21,6 +21,11 @@ public class PostController {
         return postService.save(request);
     }
 
+    @GetMapping("/field/{field}/status/{status}/sort/{sort}")
+    public List<PostResponse> findAllByFieldAndStatusSort(@PathVariable("field") String field, @PathVariable("status") String status, @PathVariable("sort") String sort) {
+        return postService.findAllByFieldAndStatusAndSort(Field.findByField(field), Status.valueOf(status), sort);
+    }
+
     @GetMapping("/category/{category}")
     public List<PostResponse> findAllByCategoryPost(@PathVariable("category") String category) {
         return postService.findAllByCategory(Category.findByCategory(category));

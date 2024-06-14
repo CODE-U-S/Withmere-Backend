@@ -26,6 +26,8 @@ public class QPost extends EntityPathBase<Post> {
 
     public final EnumPath<Category> category = createEnum("category", Category.class);
 
+    public final NumberPath<Long> commentCount = createNumber("commentCount", Long.class);
+
     public final ListPath<com.withmere.withmere.domain.comment.Comment, com.withmere.withmere.domain.comment.QComment> commentList = this.<com.withmere.withmere.domain.comment.Comment, com.withmere.withmere.domain.comment.QComment>createList("commentList", com.withmere.withmere.domain.comment.Comment.class, com.withmere.withmere.domain.comment.QComment.class, PathInits.DIRECT2);
 
     public final StringPath content = createString("content");
@@ -37,6 +39,10 @@ public class QPost extends EntityPathBase<Post> {
 
     //inherited
     public final NumberPath<Long> id = _super.id;
+
+    public final NumberPath<Long> likeCount = createNumber("likeCount", Long.class);
+
+    public final ListPath<com.withmere.withmere.domain.like.Like, com.withmere.withmere.domain.like.QLike> likeList = this.<com.withmere.withmere.domain.like.Like, com.withmere.withmere.domain.like.QLike>createList("likeList", com.withmere.withmere.domain.like.Like.class, com.withmere.withmere.domain.like.QLike.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedDate = _super.modifiedDate;

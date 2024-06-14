@@ -73,6 +73,24 @@ public class PostService {
         return new PostResponse(post);
     }
 
+    @Transactional(readOnly = true)
+    public List<PostResponse> findAllByFieldAndStatusAndSort(Field field, Status status, String sort) {
+        List<PostResponse> response = null;
+        if(sort.equals("likes"))
+            response = postRepository.findAllByFieldAndStatusOrderByLikeCountDesc(field, status)
+                .stream()
+                .map(PostResponse::new)
+                .toList();
+
+        else
+            response = postRepository.findAllByFieldAndStatusOrderByCommentCountDesc(field, status)
+                    .stream()
+                    .map(PostResponse::new)
+                    .toList();
+
+        return response;
+    }
+
     @Transactional
     public void update(Long id, UpdatePostRequest request) {
         Post post = postRepository.findById(id)
