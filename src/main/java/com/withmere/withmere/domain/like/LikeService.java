@@ -2,7 +2,7 @@ package com.withmere.withmere.domain.like;
 
 import com.withmere.withmere.domain.like.dto.AddLikeRequest;
 import com.withmere.withmere.domain.like.dto.LikeResponse;
-import com.withmere.withmere.domain.post.PostRepository;
+import com.withmere.withmere.domain.post.repository.PostRepository;
 import com.withmere.withmere.domain.user.UserRepository;
 import com.withmere.withmere.global.exception.LikeDuplicateException;
 import com.withmere.withmere.global.exception.LikeNotFoundException;

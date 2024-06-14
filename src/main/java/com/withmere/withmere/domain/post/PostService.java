@@ -3,6 +3,7 @@ package com.withmere.withmere.domain.post;
 import com.withmere.withmere.domain.post.dto.AddPostRequest;
 import com.withmere.withmere.domain.post.dto.PostResponse;
 import com.withmere.withmere.domain.post.dto.UpdatePostRequest;
+import com.withmere.withmere.domain.post.repository.PostRepository;
 import com.withmere.withmere.domain.user.UserRepository;
 import com.withmere.withmere.global.exception.PostNotFoundException;
 import com.withmere.withmere.global.exception.UserNotFoundException;
@@ -28,6 +29,14 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponse> findAllByCategory(Category category) {
         return postRepository.findAllByCategory(category)
+                .stream()
+                .map(PostResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostResponse> findAllByCategoryAndTitleContainingOrContentContaining(Category category, String search) {
+        return postRepository.findAllByCategoryAndTitleContainingOrContentContaining(category, search, search)
                 .stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());

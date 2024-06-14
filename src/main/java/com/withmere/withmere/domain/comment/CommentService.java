@@ -3,7 +3,7 @@ package com.withmere.withmere.domain.comment;
 import com.withmere.withmere.domain.comment.dto.AddCommentRequest;
 import com.withmere.withmere.domain.comment.dto.CommentResponse;
 import com.withmere.withmere.domain.comment.dto.UpdateCommentRequest;
-import com.withmere.withmere.domain.post.PostRepository;
+import com.withmere.withmere.domain.post.repository.PostRepository;
 import com.withmere.withmere.domain.user.UserRepository;
 import com.withmere.withmere.global.exception.CommentNotFoundException;
 import com.withmere.withmere.global.exception.PostNotFoundException;
