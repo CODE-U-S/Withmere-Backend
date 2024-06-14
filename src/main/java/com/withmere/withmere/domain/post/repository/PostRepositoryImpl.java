@@ -42,6 +42,14 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     }
 
     @Override
+    public List<Post> findAllByCategoryAndStatus(Category category, Status status) {
+        return queryFactory
+                .selectFrom(post)
+                .where(post.category.eq(category).and(post.status.eq(status)))
+                .fetch();
+    }
+
+    @Override
     public List<Post> findAllByTitleContainingOrContentContaining(String title, String content) {
         return queryFactory
                 .selectFrom(post)

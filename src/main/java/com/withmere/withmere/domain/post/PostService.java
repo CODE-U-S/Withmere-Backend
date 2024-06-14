@@ -51,6 +51,14 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public List<PostResponse> findAllByCategoryAndStatus(Category category, Status status) {
+        return postRepository.findAllByCategoryAndStatus(category, status)
+                .stream()
+                .map(PostResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public List<PostResponse> findAllByTitleOrContent(String title, String content) {
         return postRepository.findAllByTitleContainingOrContentContaining(title, content)
                 .stream()

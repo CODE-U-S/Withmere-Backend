@@ -22,7 +22,7 @@ public class PostController {
     }
 
     @GetMapping("/category/{category}")
-    public List<PostResponse> findAllByCategoryPost(@PathVariable String category) {
+    public List<PostResponse> findAllByCategoryPost(@PathVariable("category") String category) {
         return postService.findAllByCategory(Category.findByCategory(category));
     }
 
@@ -32,32 +32,37 @@ public class PostController {
     }
 
     @GetMapping("/status/{status}")
-    public List<PostResponse> findAllByStatusPost(@PathVariable String status) {
+    public List<PostResponse> findAllByStatusPost(@PathVariable("status") String status) {
         return postService.findAllByStatus(Status.valueOf(status));
     }
 
+    @GetMapping("/category/{category}/status/{status}")
+    public List<PostResponse> findAllByCategoryAndStatus(@PathVariable("category") String category, @PathVariable("status") String status) {
+        return postService.findAllByCategoryAndStatus(Category.findByCategory(category), Status.valueOf(status));
+    }
+
     @GetMapping("/search/{search}")
-    public List<PostResponse> findAllByTitleOrContentPost(@PathVariable String search) {
+    public List<PostResponse> findAllByTitleOrContentPost(@PathVariable("search") String search) {
         return postService.findAllByTitleOrContent(search, search);
     }
 
     @GetMapping("/{id}")
-    public PostResponse findByIdPost(@PathVariable Long id) {
+    public PostResponse findByIdPost(@PathVariable("id") Long id) {
         return postService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public void updatePost(@PathVariable Long id, @RequestBody UpdatePostRequest request) {
+    public void updatePost(@PathVariable("id") Long id, @RequestBody UpdatePostRequest request) {
         postService.update(id, request);
     }
 
     @PutMapping("/status/{id}")
-    public void updateStatusPost(@PathVariable Long id) {
+    public void updateStatusPost(@PathVariable("id") Long id) {
         postService.updateStatus(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id) {
+    public void deletePost(@PathVariable("id") Long id) {
         postService.delete(id);
     }
 }

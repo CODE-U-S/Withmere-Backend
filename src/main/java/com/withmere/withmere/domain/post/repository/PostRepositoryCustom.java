@@ -10,5 +10,6 @@ public interface PostRepositoryCustom {
     List<Post> findAllByCategory(Category category);
     List<Post> findAllByCategoryAndTitleContainingOrContentContaining(Category category, String title, String content);
     List<Post> findAllByStatus(Status status);
+    List<Post> findAllByCategoryAndStatus(Category category, Status status);
     List<Post> findAllByTitleContainingOrContentContaining(String title, String content);
 }
