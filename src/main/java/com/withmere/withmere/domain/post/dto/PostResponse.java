@@ -20,10 +20,10 @@ public class PostResponse {
     private final Field field;
     private final Status status;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDateTime createdDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     private final LocalDateTime modifiedDate;
 
     public PostResponse(Post post) {
