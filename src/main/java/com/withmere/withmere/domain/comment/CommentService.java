@@ -40,16 +40,22 @@ public class CommentService {
     }
 
     @Transactional
-    public void update(Long id, UpdateCommentRequest request) {
-        Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
-
-        comment.update(request.getComment());
+    public Long countAllByPostId(Long postId) {
+        if(!postRepository.existsById(postId)) throw PostNotFoundException.EXCEPTION;
+        return commentRepository.countAllByPostId(postId);
     }
 
     @Transactional
     public void delete(Long id) {
         if(!commentRepository.existsById(id)) throw CommentNotFoundException.EXCEPTION;
         commentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void update(Long id, UpdateCommentRequest request) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+
+        comment.update(request.getComment());
     }
 }

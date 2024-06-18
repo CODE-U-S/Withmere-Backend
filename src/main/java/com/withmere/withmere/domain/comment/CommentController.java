@@ -22,12 +22,17 @@ public class CommentController {
     }
 
     @GetMapping("/post/{id}")
-    public List<CommentResponse> findAllByPostIdComment(@PathVariable Long id) {
+    public List<CommentResponse> findAllByPostIdComment(@PathVariable("id") Long id) {
         return commentService.findAllByPostId(id);
     }
 
+    @GetMapping("/count/post/{id}")
+    public Long countAllByPostIdComment(@PathVariable("id") Long id) {
+        return commentService.countAllByPostId(id);
+    }
+
     @PutMapping("/{id}")
-    public void updateComment(@PathVariable Long id, @RequestBody UpdateCommentRequest request) {
+    public void updateComment(@PathVariable("id") Long id, @RequestBody UpdateCommentRequest request) {
         commentService.update(id, request);
     }
 
