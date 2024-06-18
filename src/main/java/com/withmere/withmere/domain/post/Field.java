@@ -18,7 +18,7 @@ public enum Field {
     VR_OR_AR("가상 현실(VR) 및 증강 현실(AR)"),
     Embedded_SYSTEM_OR_IOT("임베디드 시스템 및 Iot"),
     AI("인공지능 및 머신러닝"),
-    CLOUD("클라우드 솔루션 및  DevOps"),
+    CLOUD("클라우드 솔루션 및 DevOps"),
     SCRIPTING("자동화 및 스크립팅"),
     UI_UX("UI/UX 디자인"),
     GRAPHIC("그래픽 디자인"),
