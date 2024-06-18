@@ -59,20 +59,41 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public List<Post> findAllByFieldAndStatusOrderByLikeCountDesc(Field field, Status status) {
+    public List<Post> findAllByCategoryAndFieldAndStatusOrderByLikeCountDesc(Category category, Field field, Status status) {
         return queryFactory
                 .selectFrom(post)
-                .where(post.field.eq(field).and(post.status.eq(status)))
+                .where(
+                        post.field.eq(field)
+                                .and(post.status.eq(status))
+                                .and(post.category.eq(category))
+                )
                 .orderBy(post.likeCount.desc())
                 .fetch();
     }
 
     @Override
-    public List<Post> findAllByFieldAndStatusOrderByCommentCountDesc(Field field, Status status) {
+    public List<Post> findAllByCategoryAndFieldAndStatusOrderByCommentCountDesc(Category category, Field field, Status status) {
         return queryFactory
                 .selectFrom(post)
-                .where(post.field.eq(field).and(post.status.eq(status)))
+                .where(
+                        post.field.eq(field)
+                                .and(post.status.eq(status))
+                                .and(post.category.eq(category))
+                )
                 .orderBy(post.commentCount.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<Post> findAllByCategoryAndFieldAndStatusOrderByCreatedDateDesc(Category category, Field field, Status status) {
+        return queryFactory
+                .selectFrom(post)
+                .where(
+                        post.field.eq(field)
+                                .and(post.status.eq(status))
+                                .and(post.category.eq(category))
+                )
+                .orderBy(post.createdDate.desc())
                 .fetch();
     }
 }

@@ -74,19 +74,30 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> findAllByFieldAndStatusAndSort(Field field, Status status, String sort) {
+    public List<PostResponse> findAllByFieldAndStatusAndSort(Category category, Field field, Status status, String sort) {
         List<PostResponse> response = null;
-        if(sort.equals("likes"))
-            response = postRepository.findAllByFieldAndStatusOrderByLikeCountDesc(field, status)
-                .stream()
-                .map(PostResponse::new)
-                .toList();
 
-        else
-            response = postRepository.findAllByFieldAndStatusOrderByCommentCountDesc(field, status)
-                    .stream()
-                    .map(PostResponse::new)
-                    .toList();
+        switch (sort) {
+            case "likes":
+                response = postRepository.findAllByCategoryAndFieldAndStatusOrderByLikeCountDesc(category, field, status)
+                        .stream()
+                        .map(PostResponse::new)
+                        .toList();
+                break;
+
+            case "comments":
+                response = postRepository.findAllByCategoryAndFieldAndStatusOrderByCommentCountDesc(category, field, status)
+                        .stream()
+                        .map(PostResponse::new)
+                        .toList();
+                break;
+
+            default:
+                response = postRepository.findAllByCategoryAndFieldAndStatusOrderByCreatedDateDesc(category, field, status)
+                        .stream()
+                        .map(PostResponse::new)
+                        .toList();
+        }
 
         return response;
     }
@@ -96,7 +107,7 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
-        post.update(request.getTitle(), request.getContent(), request.getField());
+        post.update(request.getTitle(), request.getContent(), request.getCategory(), request.getField());
     }
 
     @Transactional
