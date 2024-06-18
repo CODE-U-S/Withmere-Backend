@@ -21,17 +21,22 @@ public class LikeController {
     }
 
     @GetMapping("/post/{id}")
-    public List<LikeResponse> findAllByPostIdLike(@PathVariable Long id) {
+    public List<LikeResponse> findAllByPostIdLike(@PathVariable("id") Long id) {
         return likeService.findAllByPostId(id);
     }
 
+    @GetMapping("/user/{id}")
+    public List<LikeResponse> findAllByUserIdLike(@PathVariable("id") Long id) {
+        return likeService.findAllByUserId(id);
+    }
+
     @GetMapping("/post/count/{id}")
-    public Long countAllByPostIdLike(@PathVariable Long id) {
+    public Long countAllByPostIdLike(@PathVariable("id") Long id) {
         return likeService.countAllByPostId(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteLike(@PathVariable Long id) {
+    public void deleteLike(@PathVariable("id") Long id) {
         likeService.delete(id);
     }
 }

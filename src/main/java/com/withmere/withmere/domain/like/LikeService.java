@@ -43,6 +43,15 @@ public class LikeService {
     }
 
     @Transactional(readOnly = true)
+    public List<LikeResponse> findAllByUserId(Long userId) {
+        if(!userRepository.existsById(userId)) throw UserNotFoundException.EXCEPTION;
+        return likeRepository.findAllByUserId(userId)
+                .stream()
+                .map(LikeResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public Long countAllByPostId(Long postId) {
         if(!postRepository.existsById(postId)) throw PostNotFoundException.EXCEPTION;
         return likeRepository.countAllByPostId(postId);
