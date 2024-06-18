@@ -61,6 +61,16 @@ public class PostController {
         return postService.findById(id);
     }
 
+    @GetMapping("/count/user/{id}")
+    public Long countAllByUserIdPost(@PathVariable("id") Long id) {
+        return postService.countAllByUserId(id);
+    }
+
+    @GetMapping("/user/{id}")
+    public List<PostResponse> findAllByUserIdPost(@PathVariable("id") Long id) {
+        return postService.findAllByUserId(id);
+    }
+
     @PutMapping("/{id}")
     public void updatePost(@PathVariable("id") Long id, @RequestBody UpdatePostRequest request) {
         postService.update(id, request);

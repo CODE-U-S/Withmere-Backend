@@ -16,4 +16,6 @@ public interface PostRepositoryCustom {
     List<Post> findAllByCategoryAndFieldAndStatusOrderByLikeCountDesc(Category category, Field field, Status status);
     List<Post> findAllByCategoryAndFieldAndStatusOrderByCommentCountDesc(Category category, Field field, Status status);
     List<Post> findAllByCategoryAndFieldAndStatusOrderByCreatedDateDesc(Category category, Field field, Status status);
+    List<Post> findAllByUserId(Long userId);
+    Long countAllByUserId(Long userId);
 }

@@ -96,4 +96,25 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                 .orderBy(post.createdDate.desc())
                 .fetch();
     }
+
+    @Override
+    public List<Post> findAllByUserId(Long userId) {
+        return queryFactory
+                .selectFrom(post)
+                .where(
+                        post.user.id.eq(userId)
+                )
+                .fetch();
+    }
+
+    @Override
+    public Long countAllByUserId(Long userId) {
+        return queryFactory
+                .select(post.count())
+                .from(post)
+                .where(
+                        post.user.id.eq(userId)
+                )
+                .fetchFirst();
+    }
 }

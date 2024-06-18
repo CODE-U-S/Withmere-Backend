@@ -74,6 +74,22 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public List<PostResponse> findAllByUserId(Long userId) {
+        if(!userRepository.existsById(userId)) throw UserNotFoundException.EXCEPTION;
+
+        return postRepository.findAllByUserId(userId)
+                .stream()
+                .map(PostResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Long countAllByUserId(Long userId) {
+        if(!userRepository.existsById(userId)) throw UserNotFoundException.EXCEPTION;
+        return postRepository.countAllByUserId(userId);
+    }
+
+    @Transactional(readOnly = true)
     public List<PostResponse> findAllByFieldAndStatusAndSort(Category category, Field field, Status status, String sort) {
         List<PostResponse> response = null;
 
