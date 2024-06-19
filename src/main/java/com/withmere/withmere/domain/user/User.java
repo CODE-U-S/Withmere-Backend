@@ -21,6 +21,8 @@ public class User extends BaseEntity {
     @Column(unique = true)
     private String email;
 
+    private String description;
+
     @JsonIgnore
     private String pw;
 
@@ -36,18 +38,17 @@ public class User extends BaseEntity {
     private List<Comment> commentList;
 
     @Builder
-    public User(String name, String email, String pw, Category category) {
+    public User(String name, String description, String email, String pw, Category category) {
         this.name = name;
+        this.description = description;
         this.email = email;
         this.pw = pw;
         this.category = category;
     }
 
-    public void updateName(String name) {
+    public void updateName(String name, String email, String description) {
         this.name = name;
-    }
-
-    public void updateEmail(String email) {
         this.email = email;
+        this.description = description;
     }
 }

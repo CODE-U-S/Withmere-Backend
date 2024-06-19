@@ -18,27 +18,17 @@ public class UserController {
     @PutMapping("/{id}")
     public UserResponse updateUserName(
             @PathVariable("id") Long id,
-            @RequestBody UpdateUserNameRequest request
+            @RequestBody UpdateUserRequest request
     ) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        user.updateName(request.getName());
+        user.updateName(
+                request.getName(),
+                request.getDescription(),
+                request.getEmail()
+        );
 
         return new UserResponse(user);
     }
-
-    @PutMapping("/{id}")
-    public UserResponse updateUserEmail(
-            @PathVariable("id") Long id,
-            @RequestBody UpdateUserEmailRequest request
-    ) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-
-        user.updateEmail(request.getEmail());
-
-        return new UserResponse(user);
-    }
-
 }
