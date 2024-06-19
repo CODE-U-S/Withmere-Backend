@@ -25,7 +25,7 @@ public class PostController {
     public List<PostResponse> findAllByFieldAndStatusSort(@PathVariable("category") String category, @PathVariable("field") String field, @PathVariable("status") String status, @PathVariable("sort") String sort) {
         return postService.findAllByFieldAndStatusAndSort(
                 Category.findByCategory(category),
-                Field.findByField(field),
+                field,
                 Status.valueOf(status),
                 sort
         );

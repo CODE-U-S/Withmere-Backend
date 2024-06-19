@@ -59,7 +59,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public List<Post> findAllByCategoryAndFieldAndStatusOrderByLikeCountDesc(Category category, Field field, Status status) {
+    public List<Post> findAllByCategoryAndFieldAndStatusOrderByDesc(Category category, Field field, Status status, String sort) {
         return queryFactory
                 .selectFrom(post)
                 .where(
@@ -67,33 +67,32 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
                                 .and(post.status.eq(status))
                                 .and(post.category.eq(category))
                 )
-                .orderBy(post.likeCount.desc())
+                .orderBy(
+                        sort.equals("likes") ?
+                                post.likeCount.desc() :
+                                sort.equals("comments") ?
+                                        post.commentCount.desc() :
+                                        post.createdDate.desc()
+
+                )
                 .fetch();
     }
 
     @Override
-    public List<Post> findAllByCategoryAndFieldAndStatusOrderByCommentCountDesc(Category category, Field field, Status status) {
+    public List<Post> findAllByCategoryAndStatusOrderByCreatedDateDesc(Category category, Status status, String sort) {
         return queryFactory
                 .selectFrom(post)
                 .where(
-                        post.field.eq(field)
+                        post.category.eq(category)
                                 .and(post.status.eq(status))
-                                .and(post.category.eq(category))
                 )
-                .orderBy(post.commentCount.desc())
-                .fetch();
-    }
-
-    @Override
-    public List<Post> findAllByCategoryAndFieldAndStatusOrderByCreatedDateDesc(Category category, Field field, Status status) {
-        return queryFactory
-                .selectFrom(post)
-                .where(
-                        post.field.eq(field)
-                                .and(post.status.eq(status))
-                                .and(post.category.eq(category))
+                .orderBy(
+                        sort.equals("likes") ?
+                                post.likeCount.desc() :
+                                sort.equals("comments") ?
+                                        post.commentCount.desc() :
+                                        post.createdDate.desc()
                 )
-                .orderBy(post.createdDate.desc())
                 .fetch();
     }
 

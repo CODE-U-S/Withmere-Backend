@@ -90,32 +90,18 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> findAllByFieldAndStatusAndSort(Category category, Field field, Status status, String sort) {
-        List<PostResponse> response = null;
-
-        switch (sort) {
-            case "likes":
-                response = postRepository.findAllByCategoryAndFieldAndStatusOrderByLikeCountDesc(category, field, status)
-                        .stream()
-                        .map(PostResponse::new)
-                        .toList();
-                break;
-
-            case "comments":
-                response = postRepository.findAllByCategoryAndFieldAndStatusOrderByCommentCountDesc(category, field, status)
-                        .stream()
-                        .map(PostResponse::new)
-                        .toList();
-                break;
-
-            default:
-                response = postRepository.findAllByCategoryAndFieldAndStatusOrderByCreatedDateDesc(category, field, status)
-                        .stream()
-                        .map(PostResponse::new)
-                        .toList();
+    public List<PostResponse> findAllByFieldAndStatusAndSort(Category category, String field, Status status, String sort) {
+        if(field.equals("ALL")) {
+            return postRepository.findAllByCategoryAndStatusOrderByCreatedDateDesc(category, status, sort)
+                    .stream()
+                    .map(PostResponse::new)
+                    .collect(Collectors.toList());
         }
 
-        return response;
+        return postRepository.findAllByCategoryAndFieldAndStatusOrderByDesc(category, Field.findByField(field), status, sort)
+                .stream()
+                .map(PostResponse::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional

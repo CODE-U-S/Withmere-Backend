@@ -13,9 +13,8 @@ public interface PostRepositoryCustom {
     List<Post> findAllByStatus(Status status);
     List<Post> findAllByCategoryAndStatus(Category category, Status status);
     List<Post> findAllByTitleContainingOrContentContaining(String title, String content);
-    List<Post> findAllByCategoryAndFieldAndStatusOrderByLikeCountDesc(Category category, Field field, Status status);
-    List<Post> findAllByCategoryAndFieldAndStatusOrderByCommentCountDesc(Category category, Field field, Status status);
-    List<Post> findAllByCategoryAndFieldAndStatusOrderByCreatedDateDesc(Category category, Field field, Status status);
+    List<Post> findAllByCategoryAndFieldAndStatusOrderByDesc(Category category, Field field, Status status, String sort);
+    List<Post> findAllByCategoryAndStatusOrderByCreatedDateDesc(Category category, Status status, String sort);
     List<Post> findAllByUserId(Long userId);
     Long countAllByUserId(Long userId);
 }
