@@ -42,4 +42,12 @@ public class User extends BaseEntity {
         this.pw = pw;
         this.category = category;
     }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
 }
