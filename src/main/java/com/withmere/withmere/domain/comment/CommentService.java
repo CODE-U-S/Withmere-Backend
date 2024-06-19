@@ -39,6 +39,16 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<CommentResponse> findAllByUserId(Long userId) {
+        if(!userRepository.existsById(userId)) throw UserNotFoundException.EXCEPTION;
+
+        return commentRepository.findAllByUserId(userId)
+                .stream()
+                .map(CommentResponse::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public Long countAllByPostId(Long postId) {
         if(!postRepository.existsById(postId)) throw PostNotFoundException.EXCEPTION;

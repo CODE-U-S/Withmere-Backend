@@ -26,6 +26,11 @@ public class CommentController {
         return commentService.findAllByPostId(id);
     }
 
+    @GetMapping("/user/{id}")
+    public List<CommentResponse> findAllByUserIdComment(@PathVariable("id") Long id) {
+        return commentService.findAllByUserId(id);
+    }
+
     @GetMapping("/count/post/{id}")
     public Long countAllByPostIdComment(@PathVariable("id") Long id) {
         return commentService.countAllByPostId(id);
