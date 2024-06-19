@@ -23,7 +23,7 @@ public class UserController {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        user.updateName(
+        user.update(
                 request.getName(),
                 request.getDescription(),
                 request.getEmail()

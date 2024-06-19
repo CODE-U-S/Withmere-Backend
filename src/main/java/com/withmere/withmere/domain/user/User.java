@@ -46,9 +46,9 @@ public class User extends BaseEntity {
         this.category = category;
     }
 
-    public void updateName(String name, String email, String description) {
+    public void update(String name, String description, String email) {
         this.name = name;
-        this.email = email;
         this.description = description;
+        this.email = email;
     }
 }
